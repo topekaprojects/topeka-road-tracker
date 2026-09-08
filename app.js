@@ -102,15 +102,15 @@ document.addEventListener('click',e=>{
   resetTransition(); transitionBusy=true;
   trans.classList.add('show');trans.setAttribute('aria-hidden','false');
 
-  // Fade up from black into the complete road scene.
-  setTimeout(()=>trans.classList.add('scene-visible'),220);
-  // The pothole appears immediately in front of the front tire's impact path.
-  setTimeout(()=>trans.classList.add('pothole-ready'),930);
-  // Tire meets pothole: impact spark + shocked artwork.
-  setTimeout(()=>trans.classList.add('impact'),1660);
-  // Final sad artwork. The road keeps panning right while the car drifts backward left.
-  setTimeout(()=>trans.classList.add('sad'),2380);
-  // Swinging doors close over the stopped scene.
+  // Fade from black into the complete road scene.
+  setTimeout(()=>trans.classList.add('scene-visible'),180);
+  // The pothole grows into view at the exact center-line impact point.
+  setTimeout(()=>trans.classList.add('pothole-ready'),820);
+  // The car reaches the pothole at 1.85s. Both the car and road stop at the same instant.
+  setTimeout(()=>trans.classList.add('impact','stopped'),1850);
+  // After the initial shock, switch to the final sad artwork while everything remains stopped.
+  setTimeout(()=>trans.classList.add('sad'),2520);
+  // Swinging doors close over the frozen scene.
   setTimeout(()=>trans.classList.add('doors-close'),3350);
   // Destination opens its doors instead of replaying the homepage loader.
   setTimeout(()=>{

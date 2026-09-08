@@ -23,7 +23,7 @@ Upload every file in this folder to the repository root. Do not upload only `ind
 ## V5.1 transition assets
 Keep `happy.png`, `shocked.png`, and `sadsad.png` in the same root folder as the HTML files. They power the local-page transition in this order: happy driving -> pothole impact/shocked -> stopped/sad. The full road loading screen appears only on the first homepage visit in a browser session.
 
-## V5.2 interaction update
+## V5.3 interaction update
 - Pothole repositioned to align with the front tire at the impact beat.
 - Shared transition is created by app.js on every page, so all internal navigation uses it.
 - Happy -> shocked -> sadsad sequence preserved using the supplied PNG assets.

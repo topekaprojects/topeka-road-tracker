@@ -134,3 +134,50 @@ html.home-loading,html.home-loading body{overflow:hidden;height:100%}
 }
 @media(hover:none),(pointer:coarse){.mouse-reactive{transform:none!important}.mouse-reactive:after{display:none}}
 @media(prefers-reduced-motion:reduce){.arrival-doors{display:none}.page-transition .family-car{animation:none!important}.page-transition.show .family-car{left:10vw}.page-transition .road-dashes{animation:none!important}}
+
+
+/* ===== V5.3 EXACT IMPACT + ROADWORK LOADER ===== */
+/* Loader construction props: sign first, then small cone, then tall cone. */
+.loader-workzone{position:absolute;z-index:3;left:50%;bottom:7vh;transform:translateX(-50%);width:min(980px,94vw);height:210px;pointer-events:none}
+.loader-workzone img{position:absolute;display:block;object-fit:contain;opacity:0;filter:drop-shadow(0 18px 20px rgba(0,0,0,.42));will-change:opacity,transform}
+.loader-roadclosed{left:50%;bottom:3px;width:min(300px,31vw);transform:translateX(-50%) translateY(24px) scale(.88);animation:workSignIn .68s cubic-bezier(.18,.85,.25,1) .55s forwards}
+.loader-cone.small{left:calc(50% - min(230px,24vw));bottom:7px;width:min(105px,10vw);transform:translateY(28px) scale(.7) rotate(-3deg);animation:smallConeIn .62s cubic-bezier(.18,.9,.25,1) 1.45s forwards}
+.loader-cone.big{left:calc(50% + min(145px,15vw));bottom:2px;width:min(135px,13vw);transform:translateY(32px) scale(.72) rotate(3deg);animation:bigConeIn .66s cubic-bezier(.18,.9,.25,1) 2.3s forwards}
+@keyframes workSignIn{0%{opacity:0;transform:translateX(-50%) translateY(24px) scale(.88)}70%{opacity:1;transform:translateX(-50%) translateY(-3px) scale(1.025)}100%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
+@keyframes smallConeIn{0%{opacity:0;transform:translateY(28px) scale(.7) rotate(-3deg)}70%{opacity:1;transform:translateY(-4px) scale(1.04) rotate(-1deg)}100%{opacity:1;transform:translateY(0) scale(1) rotate(-1deg)}}
+@keyframes bigConeIn{0%{opacity:0;transform:translateY(32px) scale(.72) rotate(3deg)}70%{opacity:1;transform:translateY(-5px) scale(1.035) rotate(1deg)}100%{opacity:1;transform:translateY(0) scale(1) rotate(1deg)}}
+
+/* Exact pothole geometry: the front-tire anchor arrives at 50% of the viewport. */
+.family-car{--wheel-anchor:79%;left:-52vw;bottom:10.5%;width:min(560px,47vw);transform:translateX(calc(-1 * var(--wheel-anchor)));animation:none!important}
+.page-transition.show .family-car{animation:familyDriveV53 1.85s linear forwards!important}
+@keyframes familyDriveV53{
+  0%{left:-6%;transform:translateX(-79%) translateY(0) rotate(0)}
+  100%{left:50%;transform:translateX(-79%) translateY(0) rotate(0)}
+}
+/* Freeze the car and street at the exact impact frame. */
+.page-transition.impact .family-car,.page-transition.stopped .family-car{animation-play-state:paused!important}
+.page-transition.impact .road-dashes,.page-transition.stopped .road-dashes{animation-play-state:paused!important}
+/* Impact bounce happens after travel has stopped, so alignment cannot drift. */
+.page-transition.impact .family-car{transform:translateX(-79%) translateY(0);filter:drop-shadow(0 17px 16px rgba(0,0,0,.36));animation:impactBumpV53 .42s cubic-bezier(.2,.85,.25,1) 1!important}
+@keyframes impactBumpV53{0%{left:50%;transform:translateX(-79%) translateY(0) rotate(0)}35%{left:50%;transform:translateX(-79%) translateY(-10px) rotate(-1.05deg)}68%{left:50%;transform:translateX(-79%) translateY(4px) rotate(.65deg)}100%{left:50%;transform:translateX(-79%) translateY(0) rotate(0)}}
+.page-transition.sad .family-car{left:50%!important;transform:translateX(-79%)!important;animation:none!important}
+
+/* Pothole + spark share the same 50% impact anchor as the front tire. */
+.pothole{left:50%!important;top:65.5%;width:92px;height:29px;transform:translate(-50%,-50%) scale(.18)!important}
+.page-transition.pothole-ready .pothole{opacity:1;transform:translate(-50%,-50%) scale(1)!important}
+.impact-spark{left:50%!important;top:59.6%!important;transform:translate(-50%,-50%) scale(.25)!important}
+.page-transition.impact .impact-spark{animation:sparkBurstV53 .58s ease-out forwards!important}
+@keyframes sparkBurstV53{0%{opacity:0;transform:translate(-50%,-50%) scale(.18)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.04)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.5)}}
+
+@media(max-width:650px){
+  .loader-workzone{bottom:5vh;height:150px;width:96vw}.loader-roadclosed{width:min(230px,46vw)}.loader-cone.small{left:10%;width:min(82px,18vw)}.loader-cone.big{left:auto;right:8%;width:min(102px,21vw)}
+  .loader-sign{margin-top:-17vh}
+  .family-car{width:80vw;left:-85vw;bottom:11.5%;transform:translateX(-79%)}
+  .page-transition.show .family-car{animation:familyDriveMobileV53 1.85s linear forwards!important}
+  @keyframes familyDriveMobileV53{0%{left:-4%;transform:translateX(-79%)}100%{left:50%;transform:translateX(-79%)}}
+  .page-transition.impact .family-car{animation:impactBumpMobileV53 .4s cubic-bezier(.2,.85,.25,1) 1!important}
+  @keyframes impactBumpMobileV53{0%{left:50%;transform:translateX(-79%) translateY(0)}35%{left:50%;transform:translateX(-79%) translateY(-7px) rotate(-.9deg)}68%{left:50%;transform:translateX(-79%) translateY(3px) rotate(.55deg)}100%{left:50%;transform:translateX(-79%) translateY(0)}}
+  .page-transition.sad .family-car{left:50%!important;transform:translateX(-79%)!important}
+  .pothole{left:50%!important;top:66.3%;width:72px;height:24px}
+  .impact-spark{left:50%!important;top:60.2%!important}
+}
