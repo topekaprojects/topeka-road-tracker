@@ -1,19 +1,27 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="is-loading">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#081622" />
   <meta name="description" content="Topeka community dashboard: road construction, pothole reporting, local crime/news links, events, and the September 2026 road construction PDF." />
   <title>Topeka Community & Road Tracker</title>
+  <style id="critical-loader">
+    html.is-loading,html.is-loading body{overflow:hidden!important;height:100%!important;}
+    #loader{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;min-height:100vh!important;z-index:2147483647!important;display:grid!important;place-items:center!important;background:#071521!important;isolation:isolate!important;}
+    #loader .loader-content{display:grid;place-items:center;text-align:center;}
+    html.is-loading body>header,html.is-loading body>main,html.is-loading body>footer{visibility:hidden!important;}
+  </style>
   <link rel="stylesheet" href="assets/styles.css" />
   <script defer src="assets/app.js"></script>
 </head>
 <body>
-  <div class="loader" id="loader" aria-hidden="true">
-    <div class="loader-sign"><span>TOPEKA</span><strong>COMMUNITY TRACKER</strong><i></i></div>
-    <div class="road-loader"><b></b><b></b><b></b></div>
-    <p>Loading local information…</p>
+  <div class="loader" id="loader" role="status" aria-live="polite" aria-label="Loading Topeka Community Tracker">
+    <div class="loader-content">
+      <div class="loader-sign"><span>TOPEKA</span><strong>COMMUNITY TRACKER</strong><i></i></div>
+      <div class="road-loader" aria-hidden="true"><b></b><b></b><b></b></div>
+      <p>Loading local information…</p>
+    </div>
   </div>
 
   <header class="hero" id="top">

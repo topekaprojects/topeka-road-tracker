@@ -1,6 +1,19 @@
 (() => {
   const loader = document.getElementById('loader');
-  window.addEventListener('load', () => setTimeout(() => loader?.classList.add('hide'), 650));
+  const finishLoader = () => {
+    if (!loader) {
+      document.documentElement.classList.remove('is-loading');
+      document.documentElement.classList.add('loader-complete');
+      return;
+    }
+    loader.classList.add('hide');
+    document.documentElement.classList.remove('is-loading');
+    document.documentElement.classList.add('loader-complete');
+    window.setTimeout(() => loader.remove(), 750);
+  };
+  window.addEventListener('load', () => window.setTimeout(finishLoader, 900), { once: true });
+  // Failsafe: never leave visitors trapped behind the loader if a third-party asset hangs.
+  window.setTimeout(finishLoader, 4500);
 
   const menuBtn = document.getElementById('menuBtn');
   const nav = document.getElementById('navlinks');
