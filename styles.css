@@ -51,3 +51,86 @@ html.home-loading,html.home-loading body{overflow:hidden;height:100%}
 
 @media(max-width:650px){.loader-sign{margin-top:-13vh;padding:25px 19px 23px;border-radius:17px}.loader-sign h1{font-size:clamp(2.25rem,12vw,3.7rem)}.family-car{width:78vw;left:-82vw;bottom:12%}.page-transition.show .family-car{animation-name:familyDriveMobile}.pothole{left:72%;top:66%;width:72px;height:24px}.impact-spark{left:70%;top:58%;transform:scale(.8)}.transition-copy{top:14%}@keyframes familyDriveMobile{0%{left:-82vw;transform:translateY(0)}64%{transform:translateY(0)}70%{transform:translateY(-7px) rotate(-1deg)}77%{transform:translateY(3px) rotate(.7deg)}100%{left:14vw;transform:translateY(0)}}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* ===== V5.2 POLISHED INTERACTION UPDATE ===== */
+/* Cooler navigation glow and animated underline. */
+.topbar{box-shadow:0 8px 34px rgba(0,12,20,.24),0 1px 0 rgba(118,179,200,.05)}
+.navlinks a{position:relative;overflow:hidden;transition:color .22s ease,background .22s ease,text-shadow .22s ease}
+.navlinks a:after{content:"";position:absolute;left:10px;right:10px;bottom:4px;height:2px;border-radius:99px;background:linear-gradient(90deg,var(--sky),var(--sage),var(--amber));transform:scaleX(0);transform-origin:center;transition:transform .28s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 13px rgba(118,179,200,.55)}
+.navlinks a:hover,.navlinks a.active{background:rgba(118,179,200,.055);color:#f8ffff;text-shadow:0 0 16px rgba(118,179,200,.48)}
+.navlinks a:hover:after,.navlinks a.active:after{transform:scaleX(1)}
+.brand-mark{box-shadow:0 0 0 1px rgba(118,179,200,.12),0 0 26px rgba(118,179,200,.12);transition:.25s ease}.brand:hover .brand-mark{box-shadow:0 0 0 1px rgba(118,179,200,.3),0 0 30px rgba(118,179,200,.28);transform:translateY(-1px)}
+.nav-weather{transition:.25s ease}.nav-weather:hover{border-color:rgba(118,179,200,.28);box-shadow:0 0 26px rgba(118,179,200,.11);background:rgba(118,179,200,.055)}
+
+/* The transition begins completely black, then reveals the road scene. */
+.page-transition{background:#000;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s ease,visibility .28s ease}
+.page-transition.show{opacity:1;visibility:visible;pointer-events:auto}
+.transition-scene{opacity:0;transform:scale(1.012);transition:opacity .58s ease,transform 1s ease;background:linear-gradient(#071b26 0 49%,#0b2632 49% 58%,#071219 58%)}
+.page-transition.scene-visible .transition-scene{opacity:1;transform:scale(1)}
+.transition-curtain{position:absolute;inset:0;z-index:20;background:#000;opacity:1;pointer-events:none;transition:opacity .72s ease}.page-transition.scene-visible .transition-curtain{opacity:0}
+.transition-copy{z-index:11}
+
+/* Road continues moving during the final camera pan; only the car moves backward. */
+.page-transition.sad .road-dashes{animation-duration:.34s}
+.family-car{left:-50vw;bottom:10.5%;width:min(560px,47vw);aspect-ratio:2/1;animation:none;will-change:left,transform,filter}
+.page-transition.show .family-car{animation:familyDriveV52 3.12s cubic-bezier(.17,.67,.22,1) forwards}
+@keyframes familyDriveV52{
+  0%{left:-50vw;transform:translateY(0) rotate(0)}
+  48%{left:8vw;transform:translateY(0) rotate(0)}
+  53%{left:13vw;transform:translateY(-10px) rotate(-1.1deg)}
+  57%{left:16vw;transform:translateY(4px) rotate(.7deg)}
+  66%{left:21vw;transform:translateY(0) rotate(0)}
+  76%{left:22vw;transform:translateY(0) rotate(0)}
+  100%{left:2vw;transform:translateY(0) rotate(0)}
+}
+.page-transition.impact .family-car{filter:drop-shadow(0 17px 16px rgba(0,0,0,.36))}
+.car-frame{transition:opacity .055s linear}.car-happy{opacity:1}.page-transition.impact .car-happy{opacity:0}.page-transition.impact .car-shocked{opacity:1}.page-transition.sad .car-shocked{opacity:0}.page-transition.sad .car-sad{opacity:1}
+
+/* Desktop: pothole is aligned to the front-tire path at the impact keyframe. */
+.pothole{left:53.6%;top:64.8%;width:92px;height:29px;transform:translate(-50%,-50%) scale(.18)}
+.page-transition.pothole-ready .pothole{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.impact-spark{left:53.6%;top:59.4%;transform:translate(-50%,-50%) scale(.25)}
+.page-transition.impact .impact-spark{animation:sparkBurstV52 .58s ease-out forwards}
+@keyframes sparkBurstV52{0%{opacity:0;transform:translate(-50%,-50%) scale(.18)}26%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.55)}}
+.page-transition.sad .transition-copy span:after{content:" • Yeah… that hurt.";color:#dba069}
+
+/* Swinging road-sign styled doors close before navigation. */
+.door{position:absolute;z-index:30;top:0;width:50.2%;height:100%;background:linear-gradient(135deg,#071923,#0a2733 55%,#06131b);border-color:rgba(118,179,200,.13);box-shadow:0 0 80px rgba(0,0,0,.55);transition:transform .72s cubic-bezier(.7,0,.2,1)}
+.door:before{content:"TOPEKA";position:absolute;top:50%;font:800 clamp(.72rem,1.8vw,1rem)/1 system-ui,sans-serif;letter-spacing:.28em;color:#7f9eaa;opacity:.6;transform:translateY(-50%)}
+.door-left{left:0;transform:translateX(-101%);border-right:1px solid var(--line)}.door-left:before{right:26px}.door-right{right:0;transform:translateX(101%);border-left:1px solid var(--line)}.door-right:before{left:26px}
+.page-transition.doors-close .door{transform:translateX(0)}
+.door span{position:absolute;top:50%;width:9px;height:9px;border-radius:50%;background:#b98c52;box-shadow:0 0 14px rgba(223,151,88,.35)}.door-left span{right:17px}.door-right span{left:17px}
+
+/* Destination page: same doors open to reveal the new page, with no homepage loader. */
+.arrival-doors{position:fixed;inset:0;z-index:2147483600;pointer-events:none;perspective:1400px}
+.arrival-doors>div{position:absolute;top:0;width:50.2%;height:100%;background:linear-gradient(135deg,#071923,#0a2733 55%,#06131b);box-shadow:0 0 80px rgba(0,0,0,.55);transition:transform .85s cubic-bezier(.55,.02,.18,1)}
+.arrival-left{left:0;transform-origin:left center}.arrival-right{right:0;transform-origin:right center}.arrival-doors.open .arrival-left{transform:translateX(-104%) rotateY(-12deg)}.arrival-doors.open .arrival-right{transform:translateX(104%) rotateY(12deg)}
+.arrival-doors i{position:absolute;top:50%;width:9px;height:9px;border-radius:50%;background:#b98c52}.arrival-left i{right:17px}.arrival-right i{left:17px}
+
+/* Mouse reactive index cards — restrained 3D tilt + cursor glow. */
+.mouse-reactive{position:relative;overflow:hidden;transform-style:preserve-3d;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .16s ease,border-color .25s ease,box-shadow .25s ease}
+.mouse-reactive:after{content:"";position:absolute;inset:-1px;pointer-events:none;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(118,179,200,.13),transparent 68%);opacity:.9}
+.mouse-reactive:hover{border-color:rgba(118,179,200,.28);box-shadow:0 28px 85px rgba(0,0,0,.35),0 0 34px rgba(118,179,200,.055)}
+
+/* Scroll to top on every page. */
+.scroll-top{position:fixed;right:20px;bottom:20px;z-index:1200;width:52px;height:52px;border-radius:16px;border:1px solid rgba(118,179,200,.19);background:rgba(8,29,39,.9);backdrop-filter:blur(14px);color:#eaf5f4;display:grid;place-items:center;gap:0;opacity:0;visibility:hidden;transform:translateY(12px) scale(.92);transition:.25s ease;box-shadow:0 15px 40px rgba(0,0,0,.3);cursor:pointer}
+.scroll-top span{font-size:1.1rem;line-height:.8}.scroll-top small{font-size:.43rem;letter-spacing:.12em;color:#8da7af}.scroll-top.visible{opacity:1;visibility:visible;transform:none}.scroll-top:hover{border-color:rgba(118,179,200,.45);box-shadow:0 15px 42px rgba(0,0,0,.34),0 0 27px rgba(118,179,200,.17);transform:translateY(-3px)}
+
+@media(max-width:650px){
+  .family-car{width:80vw;left:-84vw;bottom:11.5%}.page-transition.show .family-car{animation-name:familyDriveMobileV52;animation-duration:3.12s}
+  @keyframes familyDriveMobileV52{
+    0%{left:-84vw;transform:translateY(0)}
+    48%{left:-3vw;transform:translateY(0)}
+    53%{left:1vw;transform:translateY(-7px) rotate(-1deg)}
+    57%{left:4vw;transform:translateY(3px) rotate(.7deg)}
+    68%{left:8vw;transform:translateY(0)}
+    76%{left:8vw;transform:translateY(0)}
+    100%{left:-23vw;transform:translateY(0)}
+  }
+  .pothole{left:71.3%;top:66.3%;width:72px;height:24px}
+  .impact-spark{left:71.3%;top:60.2%;transform:translate(-50%,-50%) scale(.72)}
+  .transition-copy{top:14%;padding:0 12px}.transition-copy b{font-size:clamp(1.65rem,8vw,2.4rem)}
+  .door:before{display:none}.scroll-top{right:12px;bottom:12px;width:48px;height:48px;border-radius:14px}
+}
+@media(hover:none),(pointer:coarse){.mouse-reactive{transform:none!important}.mouse-reactive:after{display:none}}
+@media(prefers-reduced-motion:reduce){.arrival-doors{display:none}.page-transition .family-car{animation:none!important}.page-transition.show .family-car{left:10vw}.page-transition .road-dashes{animation:none!important}}
