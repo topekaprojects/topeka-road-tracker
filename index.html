@@ -2,100 +2,135 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="A public tracker for major active and planned road and bridge projects in Topeka, Kansas, updated September 8, 2026." />
-  <title>Topeka Road Construction Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#081622" />
+  <meta name="description" content="Topeka community dashboard: road construction, pothole reporting, local crime/news links, events, and the September 2026 road construction PDF." />
+  <title>Topeka Community & Road Tracker</title>
   <link rel="stylesheet" href="assets/styles.css" />
+  <script defer src="assets/app.js"></script>
 </head>
 <body>
-  <header class="hero">
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-sign"><span>TOPEKA</span><strong>COMMUNITY TRACKER</strong><i></i></div>
+    <div class="road-loader"><b></b><b></b><b></b></div>
+    <p>Loading local information…</p>
+  </div>
+
+  <header class="hero" id="top">
+    <div class="hero-grid"></div>
     <nav class="nav wrap">
-      <a class="brand" href="#top">TOPEKA ROAD TRACKER</a>
-      <div class="navlinks">
-        <a href="#projects">Projects</a>
-        <a href="#report">PDF Report</a>
-        <a href="#sources">Sources</a>
+      <a class="brand" href="#top"><span class="brand-dot"></span> TOPEKA TRACKER</a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navlinks"><span></span><span></span><span></span></button>
+      <div class="navlinks" id="navlinks">
+        <a href="#projects">Roads</a>
+        <a href="#report-a-problem">Fix It</a>
+        <a href="#news">Crime & News</a>
+        <a href="#events">Events</a>
+        <a href="#report">PDF</a>
       </div>
     </nav>
 
-    <div id="top" class="hero-inner wrap">
-      <p class="eyebrow">TOPEKA, KANSAS • UPDATED SEPTEMBER 8, 2026</p>
-      <h1>Road Construction Tracker</h1>
-      <p class="lede">A public snapshot of major City of Topeka and KDOT road and bridge projects, including what has started, what remains unfinished, and what is still in design or pre-construction.</p>
+    <div class="hero-inner wrap reveal">
+      <p class="eyebrow">TOPEKA, KANSAS • COMMUNITY SNAPSHOT</p>
+      <h1>Know what’s happening around Topeka.</h1>
+      <p class="lede">Road construction, pothole reporting, local crime and news links, upcoming events, and the full September 2026 construction report—all in one mobile-friendly dashboard.</p>
       <div class="hero-actions">
-        <a class="btn primary" href="#report">View the PDF</a>
-        <a class="btn secondary" href="Topeka_Road_Construction_Tracker_September_2026.pdf" download>Download report</a>
+        <a class="btn primary" href="#projects">View road projects</a>
+        <a class="btn secondary" href="#report-a-problem">Report a pothole</a>
       </div>
+      <div class="pulse-line"><span></span> Updated September 8, 2026</div>
     </div>
   </header>
 
   <main>
-    <section class="summary wrap" aria-label="Project summary">
-      <article class="stat featured">
-        <span class="number">8</span>
-        <span class="label">major projects started and unfinished</span>
-      </article>
-      <article class="stat"><span class="number">12</span><span class="label">major projects reviewed</span></article>
-      <article class="stat"><span class="number">4</span><span class="label">design, pre-construction, or unclear status</span></article>
-      <article class="stat"><span class="number">6</span><span class="label">started in 2025 or earlier and still active</span></article>
+    <section class="summary wrap reveal" aria-label="Project summary">
+      <article class="stat featured"><span class="number count" data-count="8">0</span><span class="label">major projects started and unfinished</span></article>
+      <article class="stat"><span class="number count" data-count="12">0</span><span class="label">major projects reviewed</span></article>
+      <article class="stat"><span class="number count" data-count="4">0</span><span class="label">design, pre-construction, or unclear</span></article>
+      <article class="stat"><span class="number count" data-count="6">0</span><span class="label">started in 2025 or earlier and still active</span></article>
     </section>
 
-    <section class="notice wrap">
-      <strong>What this count means:</strong> “Started and unfinished” means physical road or bridge construction was verified as underway and not complete on September 8, 2026. Planning, engineering, utility relocation, and design alone are kept separate.
+    <section class="notice wrap reveal"><strong>How the road count works:</strong> “Started and unfinished” means physical road or bridge construction was verified as underway and not complete on September 8, 2026. Planning and design are kept separate.</section>
+
+    <section id="report-a-problem" class="section utility-section wrap">
+      <div class="section-heading reveal"><p class="eyebrow dark">CITY SERVICE</p><h2>See a pothole? Report it.</h2><p>The City of Topeka links residents to SeeClickFix for reporting community issues. Use the button below to open the official Topeka reporting map and submit a location.</p></div>
+      <div class="utility-grid">
+        <article class="action-card orange-card reveal">
+          <div class="big-icon">!</div>
+          <div><span class="mini-label">REPORT AN ISSUE</span><h3>Potholes, street problems & more</h3><p>Open Topeka’s SeeClickFix portal, place the issue on the map, add details or a photo, and submit it to the City.</p></div>
+          <a class="btn white" href="https://seeclickfix.com/web_portal/KcYwD6n2gsa9vsT2EGLr8Y1P/issues/map" target="_blank" rel="noopener">Open SeeClickFix</a>
+        </article>
+        <article class="info-card reveal"><h3>Street contacts</h3><p><strong>Public Works:</strong> 785-368-3801</p><p><strong>Street Conditions:</strong> 785-368-3842</p><p><strong>City Customer Service:</strong> 785-368-3111</p><a href="https://topeka.gov/" target="_blank" rel="noopener">Visit the City of Topeka website →</a></article>
+      </div>
     </section>
 
     <section id="projects" class="section wrap">
-      <div class="section-heading">
-        <p class="eyebrow dark">CURRENT SNAPSHOT</p>
-        <h2>Major projects</h2>
-        <p>Use the status chips to quickly separate active construction from upcoming or uncertain work.</p>
-      </div>
-
+      <div class="section-heading reveal"><p class="eyebrow dark">ROAD CONSTRUCTION</p><h2>Major projects</h2><p>Active construction is shown separately from design and pre-construction work.</p></div>
       <div class="project-grid">
-        <article class="project"><span class="status active">Active • Unfinished</span><h3>SW Topeka Blvd — 15th to 21st</h3><p>Started in 2025. Road reconstruction plus waterline and storm-sewer work.</p><dl><div><dt>Target</dt><dd>Winter 2026</dd></div><div><dt>Approx. cost</dt><dd>~$8M</dd></div></dl></article>
-        <article class="project"><span class="status active">Active • Unfinished</span><h3>SE 6th — Golden to Rice</h3><p>Roadway, bridge, stormwater, intersection, curb/gutter, and ADA improvements.</p><dl><div><dt>Started</dt><dd>Oct. 6, 2025</dd></div><div><dt>Target</dt><dd>Nov. 2026</dd></div></dl></article>
-        <article class="project"><span class="status active">Active • Unfinished</span><h3>SW Fairlawn — 22nd/23rd to 28th</h3><p>Street, utilities, bridge repair, widening, and turn-lane improvements.</p><dl><div><dt>Started</dt><dd>Aug. 25, 2025</dd></div><div><dt>Target</dt><dd>Oct. 2026</dd></div></dl></article>
-        <article class="project"><span class="status active">Active • Unfinished</span><h3>SW Topeka Blvd — 29th to 37th</h3><p>Major rehabilitation, intersection reconstruction, signals, waterline, storm, and sanitary sewer.</p><dl><div><dt>Started</dt><dd>Sept. 8, 2026</dd></div><div><dt>Target</dt><dd>Dec. 2027</dd></div></dl></article>
-        <article class="project"><span class="status active">Active • Unfinished</span><h3>SW Huntoon — McAlister to Gage</h3><p>Separate pavement project west of Gage, distinct from the future Gage-to-Harrison reconstruction.</p><dl><div><dt>Substantial</dt><dd>Oct. 9, 2026</dd></div><div><dt>Final</dt><dd>Nov. 6, 2026</dd></div></dl></article>
-        <article class="project"><span class="status active">Active • Unfinished</span><h3>I-70 Polk-Quincy Viaduct</h3><p>KDOT’s major downtown Topeka interstate reconstruction project.</p><dl><div><dt>Started</dt><dd>Early 2025</dd></div><div><dt>Target</dt><dd>Late 2027</dd></div><div><dt>Approx. cost</dt><dd>~$239M</dd></div></dl></article>
-        <article class="project"><span class="status active">Active • Unfinished</span><h3>U.S. 24 — Kansas Ave to Muddy Creek</h3><p>5.5 miles of pavement, access, frontage-road, and bridge work.</p><dl><div><dt>Started</dt><dd>July 2023</dd></div><div><dt>Target</dt><dd>2027</dd></div><div><dt>Approx. cost</dt><dd>~$64.4M</dd></div></dl></article>
-        <article class="project"><span class="status active">Active • Unfinished</span><h3>California Ave Bridge over I-70</h3><p>KDOT bridge replacement affecting I-70 traffic in east Topeka.</p><dl><div><dt>Construction</dt><dd>2026</dd></div><div><dt>Target</dt><dd>Late 2026</dd></div><div><dt>Approx. cost</dt><dd>~$8M</dd></div></dl></article>
-        <article class="project"><span class="status planning">Pre-construction</span><h3>SW Huntoon — Gage to Harrison</h3><p>Development/design began in 2024; roadway construction is scheduled later.</p><dl><div><dt>Construction</dt><dd>2027–2029</dd></div><div><dt>Approx. cost</dt><dd>~$26M</dd></div></dl></article>
-        <article class="project"><span class="status planning">Status not counted</span><h3>Central Highland Park Phase II</h3><p>Indiana Avenue work between 21st and 25th; current September status was not clear enough for the active count.</p><dl><div><dt>2026 budget</dt><dd>~$2.35M</dd></div></dl></article>
-        <article class="project"><span class="status planning">Design</span><h3>Oak Park / SE 42nd east of Adams</h3><p>Engineering/design work tied to street repairs and stormwater assessment.</p></article>
-        <article class="project"><span class="status planning">Pre-construction / Mixed</span><h3>SW 57th — U.S. 75 to Topeka Blvd</h3><p>Heavy pavement rehabilitation/replacement planning with separate bridge timing.</p></article>
+        <article class="project reveal"><span class="status active">Active • Unfinished</span><h3>SW Topeka Blvd — 15th to 21st</h3><p>Road reconstruction plus waterline and storm-sewer work.</p><dl><div><dt>Started</dt><dd>2025</dd></div><div><dt>Target</dt><dd>Winter 2026</dd></div><div><dt>Approx. cost</dt><dd>~$8M</dd></div></dl></article>
+        <article class="project reveal"><span class="status active">Active • Unfinished</span><h3>SE 6th — Golden to Rice</h3><p>Roadway, bridge, stormwater, intersection, curb/gutter, and ADA improvements.</p><dl><div><dt>Started</dt><dd>Oct. 6, 2025</dd></div><div><dt>Target</dt><dd>Nov. 2026</dd></div></dl></article>
+        <article class="project reveal"><span class="status active">Active • Unfinished</span><h3>SW Fairlawn — 22nd/23rd to 28th</h3><p>Street, utilities, bridge repair, widening, and turn-lane improvements.</p><dl><div><dt>Started</dt><dd>Aug. 25, 2025</dd></div><div><dt>Target</dt><dd>Oct. 2026</dd></div></dl></article>
+        <article class="project reveal"><span class="status active">Active • Unfinished</span><h3>SW Topeka Blvd — 29th to 37th</h3><p>Rehabilitation, intersections, signals, waterline, storm, and sanitary sewer.</p><dl><div><dt>Started</dt><dd>Sept. 8, 2026</dd></div><div><dt>Target</dt><dd>Dec. 2027</dd></div><div><dt>Approx. cost</dt><dd>~$6.2M</dd></div></dl></article>
+        <article class="project reveal"><span class="status active">Active • Unfinished</span><h3>SW Huntoon — McAlister to Gage</h3><p>Pavement project west of Gage, separate from the future Gage-to-Harrison reconstruction.</p><dl><div><dt>Substantial</dt><dd>Oct. 9, 2026</dd></div><div><dt>Final</dt><dd>Nov. 6, 2026</dd></div></dl></article>
+        <article class="project reveal"><span class="status active">Active • Unfinished</span><h3>I-70 Polk-Quincy Viaduct</h3><p>KDOT’s major downtown Topeka interstate reconstruction project.</p><dl><div><dt>Started</dt><dd>Early 2025</dd></div><div><dt>Target</dt><dd>Late 2027</dd></div><div><dt>Approx. cost</dt><dd>~$239M</dd></div></dl></article>
+        <article class="project reveal"><span class="status active">Active • Unfinished</span><h3>U.S. 24 — Kansas Ave to Muddy Creek</h3><p>5.5 miles of pavement, access, frontage-road, and bridge work.</p><dl><div><dt>Started</dt><dd>July 2023</dd></div><div><dt>Target</dt><dd>2027</dd></div><div><dt>Approx. cost</dt><dd>~$64.4M</dd></div></dl></article>
+        <article class="project reveal"><span class="status active">Active • Unfinished</span><h3>California Ave Bridge over I-70</h3><p>KDOT bridge replacement affecting I-70 traffic in east Topeka.</p><dl><div><dt>Construction</dt><dd>2026</dd></div><div><dt>Target</dt><dd>Late 2026</dd></div><div><dt>Approx. cost</dt><dd>~$8M</dd></div></dl></article>
+        <article class="project reveal"><span class="status planning">Pre-construction</span><h3>SW Huntoon — Gage to Harrison</h3><p>Development/design began in 2024; physical road construction is scheduled later.</p><dl><div><dt>Construction</dt><dd>2027–2029</dd></div><div><dt>Approx. cost</dt><dd>~$26M</dd></div></dl></article>
+        <article class="project reveal"><span class="status planning">Status not counted</span><h3>Central Highland Park Phase II</h3><p>Indiana Avenue between 21st and 25th; current September status was not clear enough for the active count.</p><dl><div><dt>2026 budget</dt><dd>~$2.35M</dd></div></dl></article>
+        <article class="project reveal"><span class="status planning">Design</span><h3>Oak Park / SE 42nd east of Adams</h3><p>Engineering/design work tied to street repairs and stormwater assessment.</p></article>
+        <article class="project reveal"><span class="status planning">Pre-construction / Mixed</span><h3>SW 57th — U.S. 75 to Topeka Blvd</h3><p>Heavy pavement rehabilitation/replacement planning with separate bridge timing.</p></article>
       </div>
     </section>
 
-    <section class="cost-band">
-      <div class="wrap cost-inner">
-        <div><p class="eyebrow">KNOWN MAJOR PROJECT COSTS</p><h2>Roughly $354 million</h2></div>
-        <p>This figure only adds the major projects for which dependable cost figures were available in the report. It is not a complete total for every road, bridge, utility, sidewalk, or routine maintenance project in Topeka.</p>
+    <section class="cost-band"><div class="wrap cost-inner reveal"><div><p class="eyebrow">KNOWN MAJOR PROJECT COSTS</p><h2>Roughly $354 million</h2></div><p>This total only includes major projects for which dependable cost figures were available. It is not a complete total for every street, bridge, sidewalk, utility, or maintenance project.</p></div></section>
+
+    <section id="news" class="section news-section wrap">
+      <div class="section-heading reveal"><p class="eyebrow dark">LOCAL INFORMATION</p><h2>Crime, breaking news & city information</h2><p>These panels link directly to current sources. They are links rather than fragile third-party iframes, so they continue to work on phones and when news sites block embedding.</p></div>
+      <div class="news-grid">
+        <a class="news-card crime reveal" href="https://www.wibw.com/news/crime/" target="_blank" rel="noopener"><span class="news-tag">WIBW • CRIME</span><h3>Local crime coverage</h3><p>Latest arrests, police investigations, court-related reports, and public-safety stories from WIBW.</p><b>Open current crime news →</b></a>
+        <a class="news-card reveal" href="https://www.wibw.com/" target="_blank" rel="noopener"><span class="news-tag">WIBW • NEWS</span><h3>Breaking & local news</h3><p>Open WIBW’s current Topeka-area news coverage for developing stories and community updates.</p><b>Open WIBW →</b></a>
+        <a class="news-card city reveal" href="https://topeka.gov/" target="_blank" rel="noopener"><span class="news-tag">CITY OF TOPEKA</span><h3>Official city updates</h3><p>Road closures, city news, public calendars, services, reports, and official announcements.</p><b>Open City website →</b></a>
+      </div>
+      <div class="breaking-strip reveal"><span>RECENT WIBW CRIME SNAPSHOT</span><p>WIBW’s crime page was reporting recent Topeka coverage including a home-invasion arrest and updates in the downtown Topeka homicide investigation as of September 8, 2026. Use the Crime button above for the newest information.</p></div>
+    </section>
+
+    <section id="events" class="section events-section">
+      <div class="wrap">
+        <div class="section-heading reveal"><p class="eyebrow">UPCOMING IN TOPEKA</p><h2>Events this week</h2><p>Selected events from Visit Topeka’s continually updated calendar. Tap an event for the official listing and latest details.</p></div>
+        <div class="event-grid">
+          <a class="event-card reveal" href="https://www.visittopeka.com/event/live-%40-lunch/29589/" target="_blank" rel="noopener"><time><b>09</b><span>SEP</span></time><div><span class="event-type">MUSIC + FOOD</span><h3>Live @ Lunch</h3><p>11:00 AM–1:00 PM • Evergy Plaza</p></div></a>
+          <a class="event-card reveal" href="https://www.visittopeka.com/event/eats-%26-beats/29588/" target="_blank" rel="noopener"><time><b>10</b><span>SEP</span></time><div><span class="event-type">LIVE MUSIC</span><h3>Eats & Beats</h3><p>6:00–9:00 PM • Evergy Plaza</p></div></a>
+          <a class="event-card reveal" href="https://www.visittopeka.com/event/mini-sky-show%3A-a-celebration-of-flight/30031/" target="_blank" rel="noopener"><time><b>10</b><span>SEP</span></time><div><span class="event-type">FAMILY</span><h3>Mini Sky Show</h3><p>5:00–7:00 PM • Kansas Children’s Discovery Center</p></div></a>
+          <a class="event-card reveal" href="https://www.visittopeka.com/event/friday-flicks/29596/" target="_blank" rel="noopener"><time><b>11</b><span>SEP</span></time><div><span class="event-type">MOVIE NIGHT</span><h3>Friday Flicks</h3><p>8:00–10:00 PM • Evergy Plaza</p></div></a>
+          <a class="event-card reveal" href="https://www.visittopeka.com/event/51st-annual-huff-%E2%80%98n-puff-hot-air-balloon-rally/30006/" target="_blank" rel="noopener"><time><b>11–13</b><span>SEP</span></time><div><span class="event-type">FREE FESTIVAL</span><h3>Huff ’n Puff Balloon Rally</h3><p>Mount Hope Balloon Field • Balloon activity weather permitting</p></div></a>
+          <a class="event-card reveal" href="https://www.visittopeka.com/event/touch-a-truck-returns-to-downtown-topeka-this-september/29972/" target="_blank" rel="noopener"><time><b>12</b><span>SEP</span></time><div><span class="event-type">FREE FAMILY EVENT</span><h3>Touch-A-Truck</h3><p>9:30 AM–1:00 PM • Evergy Plaza</p></div></a>
+          <a class="event-card reveal" href="https://www.visittopeka.com/event/girls-in-aviation-day/30023/" target="_blank" rel="noopener"><time><b>12</b><span>SEP</span></time><div><span class="event-type">FREE • AVIATION</span><h3>Girls in Aviation Day</h3><p>8:00 AM–3:00 PM • Combat Air Museum / Forbes Field</p></div></a>
+          <a class="event-card reveal" href="https://www.visittopeka.com/event/breadbasket-farmers-market/29577/" target="_blank" rel="noopener"><time><b>12</b><span>SEP</span></time><div><span class="event-type">MARKET</span><h3>Breadbasket Farmers Market</h3><p>7:30 AM–1:00 PM • Free</p></div></a>
+        </div>
+        <div class="event-actions reveal"><a class="btn primary" href="https://www.visittopeka.com/events/calendar-of-events/" target="_blank" rel="noopener">View live Topeka calendar</a><a class="btn ghost" href="https://www.visittopeka.com/events/calendar-of-events/submit/" target="_blank" rel="noopener">Submit an event</a></div>
       </div>
     </section>
 
     <section id="report" class="section wrap">
-      <div class="section-heading"><p class="eyebrow dark">FULL REPORT</p><h2>Read the PDF online</h2><p>The viewer below loads the same report you can download and share.</p></div>
-      <div class="pdf-shell">
-        <iframe title="Topeka Road Construction Tracker PDF" src="Topeka_Road_Construction_Tracker_September_2026.pdf#view=FitH" loading="lazy"></iframe>
-      </div>
-      <div class="center"><a class="btn primary" href="Topeka_Road_Construction_Tracker_September_2026.pdf" target="_blank" rel="noopener">Open PDF in new tab</a></div>
+      <div class="section-heading reveal"><p class="eyebrow dark">FULL ROAD REPORT</p><h2>Read the PDF online</h2><p>The embedded viewer below loads the same report you can download and share.</p></div>
+      <div class="pdf-shell reveal"><iframe title="Topeka Road Construction Tracker PDF" src="Topeka_Road_Construction_Tracker_September_2026.pdf#view=FitH" loading="lazy"></iframe></div>
+      <div class="pdf-actions reveal"><a class="btn primary" href="Topeka_Road_Construction_Tracker_September_2026.pdf" target="_blank" rel="noopener">Open PDF</a><a class="btn dark" href="Topeka_Road_Construction_Tracker_September_2026.pdf" download>Download PDF</a></div>
     </section>
 
     <section id="sources" class="section sources wrap">
-      <div class="section-heading"><p class="eyebrow dark">SOURCE DIRECTORY</p><h2>Where the information came from</h2></div>
+      <div class="section-heading reveal"><p class="eyebrow dark">SOURCE DIRECTORY</p><h2>Official & local resources</h2></div>
       <div class="source-grid">
-        <a href="https://www.topeka.org/" target="_blank" rel="noopener"><strong>City of Topeka</strong><span>Public Works and project announcements</span></a>
-        <a href="https://files.topeka.gov/" target="_blank" rel="noopener"><strong>City project files</strong><span>Capital improvement and project materials</span></a>
+        <a href="https://topeka.gov/" target="_blank" rel="noopener"><strong>City of Topeka</strong><span>City services, Public Works, news and road information</span></a>
+        <a href="https://seeclickfix.com/web_portal/KcYwD6n2gsa9vsT2EGLr8Y1P/issues/map" target="_blank" rel="noopener"><strong>SeeClickFix Topeka</strong><span>Report potholes and other neighborhood issues</span></a>
         <a href="https://www.ksdot.gov/projects/northeast-kansas-projects/i-70-polk-quincy-viaduct" target="_blank" rel="noopener"><strong>KDOT Polk-Quincy</strong><span>I-70 project information</span></a>
-        <a href="https://www.ksdot.gov/projects/northeast-kansas-projects/u-s-24-improvements-kansas-avenue-to-muddy-creek" target="_blank" rel="noopener"><strong>KDOT U.S. 24</strong><span>Kansas Avenue to Muddy Creek</span></a>
-        <a href="https://www.ksdot.gov/projects/northeast-kansas-projects/california-avenue-over-i-70-bridge-replacement" target="_blank" rel="noopener"><strong>KDOT California Ave</strong><span>I-70 bridge replacement</span></a>
-        <a href="https://www.wibw.com/" target="_blank" rel="noopener"><strong>WIBW</strong><span>Local construction reporting</span></a>
+        <a href="https://www.wibw.com/news/crime/" target="_blank" rel="noopener"><strong>WIBW Crime</strong><span>Current local crime reporting</span></a>
+        <a href="https://www.wibw.com/" target="_blank" rel="noopener"><strong>WIBW</strong><span>Local and breaking news</span></a>
+        <a href="https://www.visittopeka.com/events/calendar-of-events/" target="_blank" rel="noopener"><strong>Visit Topeka 365</strong><span>Continuously updated local event calendar</span></a>
       </div>
-      <p class="fineprint">Construction schedules, traffic phases, project costs, and completion dates can change. This website is a public summary of the September 8, 2026 report and is not an official City of Topeka or KDOT website.</p>
+      <p class="fineprint">This is an independent public-information dashboard and is not an official City of Topeka, KDOT, WIBW, or Visit Topeka website. Construction schedules, news stories, event details, traffic phases, and costs can change. Always follow the linked source for the latest information.</p>
     </section>
   </main>
 
-  <footer><div class="wrap"><strong>Topeka Road Construction Tracker</strong><span>September 8, 2026 snapshot</span></div></footer>
+  <footer><div class="wrap"><div><strong>Topeka Community & Road Tracker</strong><span>Independent community dashboard</span></div><a href="#top">Back to top ↑</a></div></footer>
 </body>
 </html>

@@ -1,15 +1,27 @@
-# Topeka Road Construction Tracker
+# Topeka Community & Road Tracker
 
-Static GitHub Pages website for the September 8, 2026 Topeka Road Construction Tracker.
+A mobile-friendly GitHub Pages dashboard for Topeka, Kansas, including:
+
+- Major road and bridge construction tracker
+- Embedded September 2026 road-construction PDF
+- City of Topeka SeeClickFix pothole/problem reporting link
+- WIBW crime and local-news links
+- Upcoming Topeka event cards and Visit Topeka live calendar
+- Animated loading screen, scroll reveals, count-up stats, and responsive mobile navigation
 
 ## Publish on GitHub Pages
 
-1. Create a new public repository on GitHub, for example `topeka-road-tracker`.
-2. Upload everything in this folder to the root of the repository.
+1. Create a public GitHub repository (example: `topeka-road-tracker`).
+2. Upload everything in this folder to the repository root.
 3. Commit the files.
 4. Open **Settings → Pages**.
-5. Under **Build and deployment**, choose **Deploy from a branch**.
-6. Select branch **main** and folder **/(root)**, then save.
-7. GitHub will display your public Pages URL after deployment.
+5. Choose **Deploy from a branch**.
+6. Select `main` and `/(root)`.
+7. Save.
 
-The PDF is embedded in `index.html` and is also available as a direct download.
+GitHub will publish the site at a URL similar to:
+`https://YOUR-USERNAME.github.io/topeka-road-tracker/`
+
+## Updating events or news
+
+The site links to the live Visit Topeka calendar and WIBW pages. The individual event cards are a dated snapshot and can be replaced in `index.html` as new events are announced.
