@@ -6,9 +6,27 @@ const io=('IntersectionObserver'in window)?new IntersectionObserver(es=>es.forEa
 const menu=$('#menu'), nav=$('#navlinks');if(menu&&nav){menu.addEventListener('click',()=>nav.classList.toggle('open'));$$('#navlinks a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')))}
 // Home loader, first visit only in session
 const homeLoader=$('#homeLoader');if(homeLoader){const seen=sessionStorage.getItem('tct_loader_seen');if(seen){homeLoader.remove();document.documentElement.classList.remove('home-loading')}else{sessionStorage.setItem('tct_loader_seen','1');const start=performance.now();const finish=()=>{const wait=Math.max(0,5500-(performance.now()-start));setTimeout(()=>{document.documentElement.classList.remove('home-loading');homeLoader.classList.add('hide');setTimeout(()=>homeLoader.remove(),950)},wait)};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',finish,{once:true});else finish();setTimeout(()=>{if($('#homeLoader')){document.documentElement.classList.remove('home-loading');$('#homeLoader').classList.add('hide')}},8000)}}
-// Transition between local pages
-const trans=$('#pageTransition');function localPageLink(a){try{const u=new URL(a.href,location.href);return u.origin===location.origin && /(?:index|weather|roads|closures|fixit|news|events|report|about)\.html$/.test(u.pathname)}catch(e){return false}}
-$$('a[href]').forEach(a=>a.addEventListener('click',e=>{if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||a.target==='_blank'||!localPageLink(a))return;const u=new URL(a.href,location.href);if(u.href===location.href)return;e.preventDefault();if(!trans){location.href=u.href;return}trans.classList.add('show');trans.setAttribute('aria-hidden','false');setTimeout(()=>location.href=u.href,920)}));window.addEventListener('pageshow',()=>{if(trans){trans.classList.remove('show');trans.setAttribute('aria-hidden','true')}});
+// Transition between local pages — happy family -> pothole impact -> shocked -> stopped/sad.
+const trans=$('#pageTransition');
+let transitionBusy=false;
+function localPageLink(a){try{const u=new URL(a.href,location.href);return u.origin===location.origin && /(?:index|weather|roads|closures|fixit|news|events|report|about)\.html$/.test(u.pathname)}catch(e){return false}}
+function resetTransition(){if(!trans)return;trans.classList.remove('show','pothole-ready','impact','stopped');trans.setAttribute('aria-hidden','true');transitionBusy=false}
+$$('a[href]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||a.target==='_blank'||!localPageLink(a)||transitionBusy)return;
+  const u=new URL(a.href,location.href);if(u.href===location.href)return;
+  e.preventDefault();if(!trans){location.href=u.href;return}
+  transitionBusy=true;resetTransition();transitionBusy=true;
+  trans.classList.add('show');trans.setAttribute('aria-hidden','false');
+  // The hole appears ahead of the moving car.
+  setTimeout(()=>trans.classList.add('pothole-ready'),900);
+  // Front wheel reaches the hole: swap to shocked art and fire the impact spark.
+  setTimeout(()=>trans.classList.add('impact'),1580);
+  // The family stops after the hit; road motion freezes and the sad frame takes over.
+  setTimeout(()=>trans.classList.add('stopped'),2260);
+  // Hold the stopped/sad beat long enough to read visually, then continue.
+  setTimeout(()=>location.href=u.href,3400);
+}));
+window.addEventListener('pageshow',resetTransition);
 // road filters
 $$('.filter').forEach(btn=>btn.addEventListener('click',()=>{$$('.filter').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;$$('.project').forEach(p=>p.classList.toggle('hidden',f!=='all'&&p.dataset.status!==f))}));
 // WIBW tabs

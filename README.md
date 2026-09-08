@@ -18,3 +18,7 @@ The full road loading screen appears only on the first homepage visit in a brows
 
 ## GitHub Pages
 Upload every file in this folder to the repository root. Do not upload only `index.html`; `styles.css`, `app.js`, every HTML page, and the PDF are required.
+
+
+## V5.1 transition assets
+Keep `happy.png`, `shocked.png`, and `sadsad.png` in the same root folder as the HTML files. They power the local-page transition in this order: happy driving -> pothole impact/shocked -> stopped/sad. The full road loading screen appears only on the first homepage visit in a browser session.
