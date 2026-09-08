@@ -1,27 +1,29 @@
-# Topeka Community & Road Tracker
+# Topeka Community Tracker
 
-A mobile-friendly GitHub Pages dashboard for Topeka, Kansas, including:
+A static GitHub Pages community dashboard for Topeka, Kansas.
 
-- Major road and bridge construction tracker
+## Included
+- True full-screen animated loader with a longer 4.2-second minimum display and clean page handoff
+- Mobile-first responsive layout
+- Live National Weather Service weather + active alert lookup
+- Weather pill in the top-right navigation
+- Embedded KanDrive/KDOT traffic and road-closure map with fallback source link
+- Embedded Topeka SeeClickFix pothole/city issue reporting portal with fallback source link
+- Embedded WIBW Crime / News / Local tabs with fallback source link
+- Upcoming Topeka event cards + embedded Visit Topeka calendar
+- 12-project road construction tracker with filters
 - Embedded September 2026 road-construction PDF
-- City of Topeka SeeClickFix pothole/problem reporting link
-- WIBW crime and local-news links
-- Upcoming Topeka event cards and Visit Topeka live calendar
-- Animated loading screen, scroll reveals, count-up stats, and responsive mobile navigation
 
-## Publish on GitHub Pages
-
-1. Create a public GitHub repository (example: `topeka-road-tracker`).
-2. Upload everything in this folder to the repository root.
+## Publish with GitHub Pages
+1. Create a public GitHub repository, e.g. `topeka-community-tracker`.
+2. Upload the contents of this folder to the repository root.
 3. Commit the files.
 4. Open **Settings → Pages**.
-5. Choose **Deploy from a branch**.
-6. Select `main` and `/(root)`.
-7. Save.
+5. Under **Build and deployment**, choose **Deploy from a branch**.
+6. Select **main** and **/(root)**, then Save.
 
-GitHub will publish the site at a URL similar to:
-`https://YOUR-USERNAME.github.io/topeka-road-tracker/`
+## Third-party embeds
+Some websites send browser security headers that can block themselves from appearing inside an iframe. This site intentionally includes the requested iframe embeds, plus an **Open full source** link for every external module so the feature remains usable if the provider blocks framing. This cannot be overridden by GitHub Pages code.
 
-## Updating events or news
-
-The site links to the live Visit Topeka calendar and WIBW pages. The individual event cards are a dated snapshot and can be replaced in `index.html` as new events are announced.
+## Live weather
+The site uses the official `api.weather.gov` public API for central Topeka. If the API is temporarily unavailable, the weather module falls back to a direct National Weather Service link.
