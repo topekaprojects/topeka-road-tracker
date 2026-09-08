@@ -181,3 +181,39 @@ html.home-loading,html.home-loading body{overflow:hidden;height:100%}
   .pothole{left:50%!important;top:66.3%;width:72px;height:24px}
   .impact-spark{left:50%!important;top:60.2%!important}
 }
+
+
+/* ===== V5.4 SHOCK HOLD + MOVING ROADWORK PROPS ===== */
+/* At impact the shocked artwork must remain visible. The older .stopped rule is
+   intentionally delayed until the sad phase in app.js. */
+.page-transition.impact:not(.sad) .car-happy{opacity:0!important}
+.page-transition.impact:not(.sad) .car-shocked{opacity:1!important}
+.page-transition.impact:not(.sad) .car-sad{opacity:0!important}
+.page-transition.impact .road-dashes{animation-play-state:paused!important}
+
+/* The road-closed sign and cones now travel with the perspective road instead
+   of feeling pasted to the viewport. Their parent moves toward the camera while
+   each individual prop still enters in the requested order. */
+.loader-workzone{
+  transform-origin:50% 100%;
+  animation:workzoneRoadTravel 4.6s linear .45s forwards;
+  will-change:transform;
+}
+@keyframes workzoneRoadTravel{
+  0%{transform:translateX(-50%) translateY(-34px) scale(.76)}
+  35%{transform:translateX(-50%) translateY(-18px) scale(.84)}
+  70%{transform:translateX(-50%) translateY(2px) scale(.95)}
+  100%{transform:translateX(-50%) translateY(18px) scale(1.06)}
+}
+.loader-roadclosed{transform-origin:50% 100%}
+.loader-cone{transform-origin:50% 100%}
+
+@media(max-width:650px){
+  .loader-workzone{animation-name:workzoneRoadTravelMobile;animation-duration:4.6s}
+  @keyframes workzoneRoadTravelMobile{
+    0%{transform:translateX(-50%) translateY(-20px) scale(.82)}
+    55%{transform:translateX(-50%) translateY(-5px) scale(.92)}
+    100%{transform:translateX(-50%) translateY(10px) scale(1.02)}
+  }
+}
+@media(prefers-reduced-motion:reduce){.loader-workzone{animation:none!important}}

@@ -86,7 +86,7 @@ function localPageLink(a){
 }
 function resetTransition(){
   if(!trans)return;
-  trans.classList.remove('show','scene-visible','pothole-ready','impact','sad','doors-close');
+  trans.classList.remove('show','scene-visible','pothole-ready','impact','stopped','sad','doors-close');
   trans.setAttribute('aria-hidden','true');
   transitionBusy=false;
 }
@@ -107,16 +107,17 @@ document.addEventListener('click',e=>{
   // The pothole grows into view at the exact center-line impact point.
   setTimeout(()=>trans.classList.add('pothole-ready'),820);
   // The car reaches the pothole at 1.85s. Both the car and road stop at the same instant.
-  setTimeout(()=>trans.classList.add('impact','stopped'),1850);
-  // After the initial shock, switch to the final sad artwork while everything remains stopped.
-  setTimeout(()=>trans.classList.add('sad'),2520);
+  setTimeout(()=>trans.classList.add('impact'),1850);
+  // Hold the shocked frame clearly while the car AND the road are already frozen.
+  // Only after that hold do we switch to the final sad frame.
+  setTimeout(()=>trans.classList.add('stopped','sad'),2800);
   // Swinging doors close over the frozen scene.
-  setTimeout(()=>trans.classList.add('doors-close'),3350);
+  setTimeout(()=>trans.classList.add('doors-close'),3650);
   // Destination opens its doors instead of replaying the homepage loader.
   setTimeout(()=>{
     sessionStorage.setItem('tct_transition_arrival','1');
     location.href=u.href;
-  },4200);
+  },4500);
 });
 window.addEventListener('pageshow',resetTransition);
 
