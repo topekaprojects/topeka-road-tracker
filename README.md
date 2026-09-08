@@ -1,18 +1,20 @@
-# Topeka Community Tracker V4
+# Topeka Community Tracker V5 — Multi-Page Edition
 
-A self-contained GitHub Pages site created for Joseph Romero.
+Created by Joseph Romero, Topeka, Kansas.
 
-## Publish
-Upload `index.html` and `Topeka_Road_Construction_Tracker_September_2026.pdf` to the root of a public GitHub repository, then enable **Settings → Pages → Deploy from a branch → main → /(root)**.
+## Pages
+- `index.html` — homepage/dashboard and the full road loading screen
+- `weather.html` — live current conditions + 7-day NWS forecast
+- `roads.html` — road construction, costs and project-status graph
+- `closures.html` — KanDrive/KDOT embedded traffic page
+- `fixit.html` — Topeka SeeClickFix pothole reporting
+- `news.html` — WIBW crime/local/all-news viewer
+- `events.html` — Visit Topeka live events calendar
+- `report.html` — embedded road-construction PDF
+- `about.html` — creator/about and source directory
 
-## Live/automatic content
-- Weather: National Weather Service API, refreshed every 15 minutes while the page is open.
-- Events: embedded Visit Topeka 365 calendar; new events appear when Visit Topeka updates its source calendar.
-- News: embedded WIBW pages.
-- Potholes: embedded Topeka SeeClickFix portal.
-- Closures: embedded KanDrive.
+## Navigation behavior
+The full road loading screen appears only on the first homepage visit in a browser session. Moving between local pages uses a short family-car road transition instead. Returning to Home during the same session does not replay the long loader.
 
-Third-party providers can change iframe/security rules. Every embedded module includes a direct-source fallback link.
-
-## Important
-The site is an independent community resource, not an official City of Topeka or KDOT website.
+## GitHub Pages
+Upload every file in this folder to the repository root. Do not upload only `index.html`; `styles.css`, `app.js`, every HTML page, and the PDF are required.
