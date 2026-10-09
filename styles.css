@@ -217,3 +217,10 @@ html.home-loading,html.home-loading body{overflow:hidden;height:100%}
   }
 }
 @media(prefers-reduced-motion:reduce){.loader-workzone{animation:none!important}}
+
+/* V5.5 navigation speed-up: keep existing artwork and transitions */
+.page-transition.show .family-car{animation-duration:1.1s!important;animation-timing-function:ease-out!important}
+.page-transition .transition-scene{transition-duration:.22s!important}
+.page-transition .transition-curtain{transition-duration:.22s!important}
+.arrival-doors .arrival-left,.arrival-doors .arrival-right{animation-duration:.6s!important;transition-duration:.6s!important}
+.update-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:16px;margin-top:20px}.update-item{padding:20px}.update-item h3{font-size:1.15rem;margin:0 0 10px}.update-item small{display:block;margin-bottom:12px;color:#91a9b2}.update-item a,.source-button{color:#ffcc80}.spotlight{border:1px solid rgba(255,173,78,.48);padding:24px;border-radius:18px;background:linear-gradient(120deg,rgba(245,154,45,.13),rgba(9,27,38,.9))}.spotlight h2{margin:10px 0}.spotlight p{line-height:1.65}.source-stack{display:flex;flex-wrap:wrap;gap:16px;margin-top:15px}.source-stack a{color:#ffcc80}.note{color:#a8bfc8;font-size:.9rem;line-height:1.6}

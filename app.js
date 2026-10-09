@@ -22,7 +22,7 @@ if(homeLoader){
     sessionStorage.setItem('tct_loader_seen','1');
     const start=performance.now();
     const finish=()=>{
-      const wait=Math.max(0,5500-(performance.now()-start));
+      const wait=Math.max(0,2400-(performance.now()-start));
       setTimeout(()=>{
         document.documentElement.classList.remove('home-loading');
         homeLoader.classList.add('hide');
@@ -30,7 +30,7 @@ if(homeLoader){
       },wait);
     };
     if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',finish,{once:true});else finish();
-    setTimeout(()=>{if($('#homeLoader')){document.documentElement.classList.remove('home-loading');$('#homeLoader').classList.add('hide')}},8000);
+    setTimeout(()=>{if($('#homeLoader')){document.documentElement.classList.remove('home-loading');$('#homeLoader').classList.add('hide')}},1480);
   }
 }
 
@@ -74,14 +74,14 @@ if(sessionStorage.getItem('tct_transition_arrival')==='1'){
   arrival.innerHTML='<div class="arrival-left"><i></i></div><div class="arrival-right"><i></i></div>';
   document.body.appendChild(arrival);
   requestAnimationFrame(()=>requestAnimationFrame(()=>arrival.classList.add('open')));
-  setTimeout(()=>arrival.remove(),1150);
+  setTimeout(()=>arrival.remove(),650);
 }
 
 let transitionBusy=false;
 function localPageLink(a){
   try{
     const u=new URL(a.href,location.href);
-    return u.origin===location.origin && /(?:index|weather|roads|closures|fixit|news|events|report|about)\.html$/.test(u.pathname);
+    return u.origin===location.origin && /(?:index|weather|roads|closures|fixit|news|events|report|about|crime)\.html$/.test(u.pathname);
   }catch(e){return false}
 }
 function resetTransition(){
@@ -103,21 +103,21 @@ document.addEventListener('click',e=>{
   trans.classList.add('show');trans.setAttribute('aria-hidden','false');
 
   // Fade from black into the complete road scene.
-  setTimeout(()=>trans.classList.add('scene-visible'),180);
+  setTimeout(()=>trans.classList.add('scene-visible'),65);
   // The pothole grows into view at the exact center-line impact point.
-  setTimeout(()=>trans.classList.add('pothole-ready'),820);
+  setTimeout(()=>trans.classList.add('pothole-ready'),240);
   // The car reaches the pothole at 1.85s. Both the car and road stop at the same instant.
-  setTimeout(()=>trans.classList.add('impact'),1850);
+  setTimeout(()=>trans.classList.add('impact'),650);
   // Hold the shocked frame clearly while the car AND the road are already frozen.
   // Only after that hold do we switch to the final sad frame.
-  setTimeout(()=>trans.classList.add('stopped','sad'),2800);
+  setTimeout(()=>trans.classList.add('stopped','sad'),950);
   // Swinging doors close over the frozen scene.
-  setTimeout(()=>trans.classList.add('doors-close'),3650);
+  setTimeout(()=>trans.classList.add('doors-close'),1190);
   // Destination opens its doors instead of replaying the homepage loader.
   setTimeout(()=>{
     sessionStorage.setItem('tct_transition_arrival','1');
     location.href=u.href;
-  },4500);
+  },1480);
 });
 window.addEventListener('pageshow',resetTransition);
 
@@ -163,3 +163,7 @@ function iconEmoji(t=''){t=t.toLowerCase();if(t.includes('thunder'))return'⛈�
 function groupForecast(periods){const days=[];for(const p of periods){let key=new Date(p.startTime).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});let d=days.find(x=>x.key===key);if(!d){d={key,date:new Date(p.startTime),day:null,night:null};days.push(d)}if(p.isDaytime)d.day=p;else d.night=p}return days.slice(0,7)}
 async function loadWeather(){try{const point=await fetch('https://api.weather.gov/points/39.0473,-95.6752',{headers:{Accept:'application/geo+json'}}).then(r=>{if(!r.ok)throw Error('points');return r.json()});const [forecast,stations]=await Promise.all([fetch(point.properties.forecast).then(r=>r.json()),fetch(point.properties.observationStations).then(r=>r.json())]);const station=stations.features?.[0]?.id;let obs=null;if(station){try{obs=await fetch(station+'/observations/latest').then(r=>r.json())}catch(e){}}const periods=forecast.properties.periods||[],cp=periods[0]||{};let temp=cp.temperature,cond=cp.shortForecast||'Forecast available',wind=cp.windSpeed?`${cp.windSpeed} ${cp.windDirection||''}`:'National Weather Service';if(obs?.properties?.temperature?.value!=null){temp=Math.round(obs.properties.temperature.value*9/5+32);cond=obs.properties.textDescription||cond;const mph=obs.properties.windSpeed?.value!=null?Math.round(obs.properties.windSpeed.value*0.621371):null;if(mph!=null)wind=`Wind ${mph} mph`}$$('[data-temp]').forEach(x=>x.textContent=`${temp}°F`);$$('[data-cond]').forEach(x=>x.textContent=cond);$$('[data-icon]').forEach(x=>x.textContent=iconEmoji(cond));const ht=$('#heroTemp');if(ht)ht.textContent=`${temp}°`;const hc=$('#heroCondition');if(hc)hc.textContent=cond;const hw=$('#heroWind');if(hw)hw.textContent=wind;const wg=$('#weekGrid');if(wg){const days=groupForecast(periods);wg.innerHTML=days.map((d,i)=>{const hi=d.day?.temperature??'--',lo=d.night?.temperature??'--',label=d.day?.shortForecast||d.night?.shortForecast||'',nm=i===0?'Today':d.date.toLocaleDateString('en-US',{weekday:'short'});return `<article class="day-card"><div class="day">${nm}</div><div class="wxemoji">${iconEmoji(label)}</div><div class="temps">${hi}° <span>${lo}°</span></div><div class="forecast-label">${label}</div></article>`}).join('')}const ws=$('#weatherStatus');if(ws&&!ws.dataset.alertLoaded){ws.dataset.alertLoaded='1';try{const alerts=await fetch('https://api.weather.gov/alerts/active?zone=KSZ039').then(r=>r.json());const c=alerts.features?.length||0;if(c){const names=alerts.features.slice(0,2).map(a=>a.properties.event).join(' • ');ws.insertAdjacentHTML('beforeend',`<span class="status-chip alert">${c} active alert${c===1?'':'s'}: ${names}</span>`)}else ws.insertAdjacentHTML('beforeend','<span class="status-chip">No active Shawnee County weather alerts found</span>')}catch(e){}}}catch(e){$$('[data-temp]').forEach(x=>x.textContent='NWS');$$('[data-cond]').forEach(x=>x.textContent='Weather unavailable');const wg=$('#weekGrid');if(wg)wg.innerHTML='<article class="day-card">Weather service temporarily unavailable.</article>'}}
 loadWeather();setInterval(loadWeather,15*60*1000);
+
+// V5.5: source-backed public updates; never infer a closure from an unverified headline.
+async function loadCommunityUpdates(){const mount=document.querySelector('#communityUpdates');if(!mount)return;try{const r=await fetch('data/community-updates.json?ts='+Math.floor(Date.now()/900000),{cache:'no-store'});if(!r.ok)throw Error('Updates unavailable');const d=await r.json();const stamp=document.querySelector('#updatesStamp');if(stamp)stamp.textContent='Feed checked: '+new Date(d.generated_at).toLocaleString();mount.replaceChildren();(d.items||[]).slice(0,10).forEach(item=>{const article=document.createElement('article');article.className='panel update-item';const heading=document.createElement('h3');heading.textContent=item.title;const meta=document.createElement('small');meta.textContent=item.publisher+' • '+item.date;const link=document.createElement('a');link.textContent='Read source ↗';link.href=item.url;link.target='_blank';link.rel='noopener noreferrer';article.append(heading,meta,link);mount.append(article)});if(!d.items?.length)mount.textContent='No recent feed entries. Use the official sources below.'}catch(e){mount.textContent='Automatic headlines are temporarily unavailable. Use the official source links below.'}}
+loadCommunityUpdates();setInterval(loadCommunityUpdates,900000);
